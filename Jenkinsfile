@@ -35,14 +35,23 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
-                sh 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                script {
+                    sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                }
+
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub', // <-- Jenkins credentials ID
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD'
+                )]) {
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
+                    sh 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                }
             }
         }
 
         stage('Security Scan - Trivy') {
             steps {
-                // Run Trivy scan on the pushed image
                 sh 'trivy image ${IMAGE_NAME}:${IMAGE_TAG} || true'
             }
         }

@@ -25,6 +25,14 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('My SonarQube Server') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
         stage('Docker Build & Push') {
             steps {
                 sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
@@ -40,4 +48,3 @@ pipeline {
         }
     }
 }
-

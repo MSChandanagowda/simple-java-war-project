@@ -1,0 +1,8 @@
+server:
+  persistentVolume:
+    enabled: false
+
+alertmanager:
+  persistentVolume:
+    enabled: false
+

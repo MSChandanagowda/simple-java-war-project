@@ -40,7 +40,7 @@ pipeline {
                 }
 
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub', // <-- Jenkins credentials ID
+                    credentialsId: 'Dockerhub', // <-- Jenkins credentials ID
                     usernameVariable: 'USERNAME',
                     passwordVariable: 'PASSWORD'
                 )]) {

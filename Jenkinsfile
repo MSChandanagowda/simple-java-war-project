@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_USER = "kittappaprathapa"
+        DOCKER_USER = "chandana2203"
         IMAGE_NAME = "${DOCKER_USER}/myapp"
         IMAGE_TAG = "v1.0.0"
     }
